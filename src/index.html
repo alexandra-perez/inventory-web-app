@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Application</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__container">
+        <img src="../images/logoipsum-222.svg" height="40px" />
+        <h1>Inventory Management System</h1>
+      </div>
+      <p class="header__date"></p>
+    </header>
+    <main>
+      <div>
+        <form>
+          <fieldset>
+            <legend>Add New Product</legend>
+            <label for="productBrand">Brand</label>
+            <input type="text" name="productBrand" id="productBrand" />
+            <br /><label for="productName">Name</label>
+            <input type="text" name="productName" id="productName" />
+            <br />
+            <label for="productCost">Cost</label>
+            <input type="number" min="1" name="productCost" id="productCost" />
+            <br />
+            <label for="expirationDate">Expiration Date</label>
+            <input type="date" name="expirationDate" id="expirationDate" />
+            <br />
+            <label> Product Category </label>
+            <select name="productCategory" id="productCategory">
+              <option value="" selected disabled>Select One</option>
+              <option value="all-purpose-cleaners">All-Purpose Cleaners</option>
+              <option value="bleaches">Bleaches</option>
+              <option value="detergents">Detergents</option>
+              <option value="disinfectants">Disinfectants</option>
+              <option value="equipment">Equipment</option>
+              <option value="floor-cleaners">Floor Cleaners</option>
+              <option value="glass-cleaners">Glass Cleaners</option>
+              <option value="odor-neutralizers">Odor Neutralizers</option>
+              <option value="personal-protective-equipment">
+                Personal Protective Equipment (PPE)
+              </option>
+              <option value="polishes-and-waxes">Polishes and Waxes</option>
+              <option value="sanitizers">Sanitizers</option>
+              <option value="specialty-cleaners">Specialty Cleaners</option>
+            </select>
+            <br />
+            <label>
+              In-Stock
+              <select name="stockStatus" id="stockStatus">
+                <option value="" selected disabled>Select One</option>
+                <option value="in-stock">In Stock</option>
+                <option value="out-of-stock">Out-Of-Stock</option>
+              </select>
+            </label>
+            <br />
+            <button type="reset" id="reset">Reset</button>
+            <button type="submit" id="submit">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+      <div>
+        <table class="productTable">
+          <tr class="productTable__tr">
+            <th>Brand</th>
+            <th>Name</th>
+            <th>Cost</th>
+            <th>Exp. Date</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Delete</th>
+          </tr>
+          <tr class="productTable__tr">
+            <td>Lysol</td>
+            <td>Lysol Disinfectant Wipes, Multi-Surface Antibacterial Cleaning Wipes, For Disinfecting and Cleaning, Lemon and Lime Blossom Scent, 80 ct</td>
+            <td>11.00</td>
+            <td>01/23/28</td>
+            <td>All-Purpose Cleaners</td>
+            <td>In-Stock</td>
+            <td>
+              <button class="delete-button">Delete</button>
+            </td>
+          </tr>
+          <tr class="productTable__tr">
+            <td>Fabuloso</td>
+            <td>Fabuloso Multi-Purpose Cleaner, 2X Concentrated Formula, Lavender Scent, 1 gal</td>
+            <td>20.00</td>
+            <td>08/17/29</td>
+            <td>All-Purpose Cleaners</td>
+            <td>In-Stock</td>
+            <td>
+              <button class="delete-button">Delete</button>
+            </td>
+          </tr>
+          <tr class="productTable__tr">
+            <td>Floor Science</td>
+            <td>Floor Science High Gloss Floor Finish, 1 gal</td>
+            <td>39.99</td>
+            <td>02/01/25</td>
+            <td>Floor Cleaners</td>
+            <td>In-Stock</td>
+            <td>
+              <button class="delete-button">Delete</button>
+            </td>
+          </tr>
+          <tr class="productTable__tr">
+            <td>Uline</td>
+            <td>Uline Max-Flex Kitchen Bags, 13 gal</td>
+            <td>28.00</td>
+            <td>00/00/00</td>
+            <td>Equipment</td>
+            <td>Out-Of-Stock</td>
+            <td>
+              <button class="delete-button">Delete</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

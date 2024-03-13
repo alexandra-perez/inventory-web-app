@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5rem;
+}
+
+main {
+  margin: 20px;
+}
+
+header {
+  background-color: #1c68cf;
+  padding: 20px;
+}
+
+.header__container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+h1 {
+  font-size: 20px;
+  color: #fff;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+fieldset {
+  border: none;
+}
+
+legend {
+  font-weight: 700;
+}
+
+form,
+th {
+  font-size: 18px;
+}
+
+th,
+td {
+  border: none;
+}
+
+td {
+  padding: 5px 10px;
+  font-size: 15px;
+}
+
+tr:nth-child(odd) {
+  background: #c6cdd7;
+}
+
+button {
+  padding: 0px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1c68cf;
+  color: #fff;
+  margin: 20px 0px;
+}
+
+.delete-button {
+  background-color: #ec0000;
+}
+
