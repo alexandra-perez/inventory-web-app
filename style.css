@@ -1,24 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-/* Reset */
+/* || RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* || VARIABLES */
+:root {
+  /* Colors */
+  --primary-color: #1c68cf;
+  --secondary-color: #c6cdd7;
+  --secondary-color-darker: #5c5f64;
+  --accent-color: #fff;
+  --button-color: #ec0000;
+  --highlight-color: #FFFACD;
+  /* Box shadow */
+  --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* || UTILITY CLASSES */
+.font-sz-20 {
+  font-size: 20px;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.product-table__tr.highlight {
+  background-color: var(--highlight-color)
+}
+
+/* || LAYOUT */
 body {
   font-family: 'Inter', sans-serif;
   line-height: 1.5rem;
+  font-weight: 300;
 }
 
 main {
   margin: 20px;
 }
 
+/* Header */
 header {
-  background-color: #1c68cf;
+  background-color: var(--primary-color);
   padding: 20px;
+  box-shadow: var(--box-shadow);
 }
 
 .header__container {
@@ -27,14 +57,10 @@ header {
   align-items: center;
 }
 
+/* Form */
 h1 {
   font-size: 20px;
-  color: #fff;
-}
-
-h2 {
-  font-weight: 500;
-  font-size: 20px;
+  color: var(--accent-color);
 }
 
 fieldset {
@@ -42,38 +68,181 @@ fieldset {
 }
 
 legend {
+  font-size: 25px;
   font-weight: 700;
 }
 
-form,
+form {
+  line-height: 2;
+}
+
+form,ƒ
 th {
   font-size: 18px;
 }
 
+input,
+select {
+  border: 1px solid var(--secondary-color);
+  padding: 5px;
+}
+
+label {
+  font-weight: 300;
+}
+
+/* Counts */
+.total-lines-count, .total-inventory-count {
+  text-align: right;
+  color: var(--secondary-color-darker);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  table-layout: fixed;
+  border: 1px solid black;
+  box-shadow: var(--box-shadow);
+}
+
+.product-table__container {
+  height: 50vh;
+  overflow: auto;
+}
+
+.form-table th {
+  width: 20%;
+}
+
+th {
+  padding: 5px;
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+  text-align: left;
+}
+
 th,
 td {
-  border: none;
+  border: 1px solid #000;
+  max-height: 50px;
+  text-overflow: ellipsis;
 }
+
+tr {
+  max-height: 1rem;
+  border: 1px solid var(--secondary-color-darker);
+}
+
+/* tr:nth-child(odd) {
+  background: var(--secondary-color);
+} */
 
 td {
-  padding: 5px 10px;
+  padding: 0px 10px;
   font-size: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  min-height: 10%;
+  max-height: 20%;
+  border: 1px solid var(--secondary-color-darker);
 }
 
-tr:nth-child(odd) {
-  background: #c6cdd7;
+.edit-col, .delete-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Buttons */
 button {
-  padding: 0px 20px;
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
-  background-color: #1c68cf;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--accent-color);
   margin: 20px 0px;
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
+  margin: 10px auto;
 }
 
 .delete-button {
-  background-color: #ec0000;
+  background-color: var(--button-color);
 }
 
+/* Modal */
+svg {
+  height: 80px;
+}
+
+.warning-modal {
+  background-color: var(--accent-color);
+  width: 50%;
+  height: 25%;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  display: none;
+  padding: 10px;
+  overflow: auto;
+}
+
+.warning-modal__buttons-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 15px 50px;
+}
+
+.warning-modal p {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25em;
+}
+
+.warning-modal span {
+  font-size: 15px;
+}
+
+.warning-modal button {
+  font-size: 15px;
+  display: inline-block;
+  margin: 20px 10px;
+}
+
+.warning-modal button:hover {
+  background-color: var(--primary-color);
+}
+
+.confirm-btn {
+  background-color: var(--secondary-color);
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+  text-align: center;
+  margin-top: 30px;
+}
+
+footer a:any-link {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #000;
+}
+
+.trash-button {
+  background-color: transparent;
+  /* box-shadow: none; */
+}
+
+.trash-button svg {
+  height: 20px;
+}
