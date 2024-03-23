@@ -24,5 +24,5 @@ This application is designed to help users efficiently track and manage their in
 - Users can also delete items as needed.
 
 ## Credits
-Logo by logoipsum.com
-Icons by svgrepo.com
+- Logo by logoipsum.com
+- Icons by svgrepo.com
