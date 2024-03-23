@@ -58,7 +58,7 @@ form.addEventListener('submit', (event) => {
   inventoryCount += Number(productQty);
   updateInventoryCount();
 
-  // form.reset();
+  form.reset();
 });
 
 function addProductToTable(
@@ -121,17 +121,16 @@ function addProductToTable(
   newRow.append(td);
   td.classList.add('delete-col');
 
-  // Add edit functionality for new rows
   editButton.addEventListener('click', highlightRow);
 
-  // Add delete functionality for new rows
   deleteBtn.addEventListener('click', (event) => {
     showModal();
     selectedRow = event.target.parentNode.parentNode;
   });
 
   table.appendChild(newRow);
-countStock(); }
+  countStock();
+}
 
 const existingEditBtns = document.querySelectorAll('.edit-button');
 for (const existingEditBtn of existingEditBtns) {
