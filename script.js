@@ -1,96 +1,66 @@
-/*
-Functionality to add:
-  - Edit button can't be edited
-  - Edit qty updates total inventory
-*/
-
-// Populate header
-const headerDate = document.querySelector('.header__date');
-headerDate.innerText = new Date();
-headerDate.style.color = '#c6cdd7';
-
-// Set line items count
-let lineItemsCount = 4;
-const totalLineItems = document.querySelector('.total-lines-count');
-totalLineItems.innerText = `Total line items: ${lineItemsCount}`;
-
-// Set inventory count
-let inventoryCount = 0;
-const totalInventory = document.querySelector('.total-inventory-count');
-
-const quantities = document.querySelectorAll('.qty');
-for (const quantity of quantities) {
-  inventoryCount += Number(quantity.innerText);
-}
-totalInventory.innerText = `Total items in inventory (${inventoryCount})`;
-
-// Add form logic
 const form = document.querySelector('form');
+const totalLineItems = document.querySelector('.total-lines-count');
+const totalInventory = document.querySelector('.total-inventory-count');
+const warningModal = document.querySelector('.warning-modal');
+const confirmBtn = document.querySelector('.confirm-btn');
+const cancelBtn = document.querySelector('.cancel-btn');
+let lineItemsCount = 4;
+let inventoryCount = 199;
 let selectedRow = null;
 
-// Set current date as min exp. date allowed
-let today = new Date().toISOString().split('T')[0];
-document.getElementsByName('expirationDate')[0].setAttribute('min', today);
+import {
+  populateHeader,
+  setMinDateAllowed,
+  capitalizeFirstLetter,
+  formatCost,
+  countStock,
+  highlightRow,
+  updateInventoryCount,
+  updateLineItemsCount,
+} from './helpers.js';
 
-// Add edit functionality
-const existingEditBtns = document.querySelectorAll('.edit-button');
-for (const existingEditBtn of existingEditBtns) {
-  existingEditBtn.addEventListener('click', (event) => {
-    selectedRow = event.target.parentNode.parentNode;
-    event.target.parentNode.parentNode.classList.toggle('highlight');
-    selectedRow.contentEditable = 'true';
-  });
-}
+populateHeader();
 
-// Show modal on user - click delete button.
-// Set selected row for deletion.
-const existingBtns = document.querySelectorAll('.delete-button');
-for (const existingBtn of existingBtns) {
-  existingBtn.addEventListener('click', (event) => {
-    showModal();
-    selectedRow = event.target.parentNode.parentNode;
-  });
-}
+updateLineItemsCount(totalLineItems, lineItemsCount);
 
-// Add form submission event listener
+countStock();
+
+setMinDateAllowed('expirationDate');
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  const productBrand =
-    form.productBrand.value.charAt(0).toUpperCase() +
-    form.productBrand.value.slice(1);
-  const productDescription =
-    form.productBrand.value +
-    ' ' +
-    form.productDescription.value.charAt(0).toUpperCase() +
-    form.productDescription.value.slice(1);
+  const productBrand = capitalizeFirstLetter(form.productBrand.value);
+  const productDescription = `${productBrand} ${capitalizeFirstLetter(
+    form.productDescription.value
+  )}`;
   const productQty = form.productQty.value;
-  const productCost = Number(form.productCost.value).toFixed(2).toString();
+  const productCost = formatCost(form.productCost.value);
   const expirationDate = form.expirationDate.value;
   const productCategory = form.productCategory.value;
   const stockStatus = form.stockStatus.value;
 
-  // Populate inventory table
-  addProductToTable(
+  const productValues = [
     productBrand,
     productDescription,
     productQty,
     productCost,
     expirationDate,
     productCategory,
-    stockStatus
-  );
-  // Increment and display line items and inventory count
+    stockStatus,
+  ];
+
+  addProductToTable(...productValues);
+
   lineItemsCount++;
-  totalLineItems.innerText = `Total line items: ${lineItemsCount}`;
+  updateLineItemsCount(totalLineItems, lineItemsCount);
 
   inventoryCount += Number(productQty);
-  totalInventory.innerText = `Total items in inventory (${inventoryCount})`;
+  updateInventoryCount();
 
   // form.reset();
 });
 
-// Populate inventory table
 function addProductToTable(
   productBrand,
   productDescription,
@@ -152,11 +122,7 @@ function addProductToTable(
   td.classList.add('delete-col');
 
   // Add edit functionality for new rows
-  editButton.addEventListener('click', (event) => {
-    selectedRow = event.target.parentNode.parentNode;
-    selectedRow.contentEditable = 'true';
-    event.target.parentNode.parentNode.classList.toggle('highlight');
-  });
+  editButton.addEventListener('click', highlightRow);
 
   // Add delete functionality for new rows
   deleteBtn.addEventListener('click', (event) => {
@@ -165,34 +131,51 @@ function addProductToTable(
   });
 
   table.appendChild(newRow);
+countStock(); }
+
+const existingEditBtns = document.querySelectorAll('.edit-button');
+for (const existingEditBtn of existingEditBtns) {
+  existingEditBtn.addEventListener('click', highlightRow);
+  existingEditBtn.addEventListener('click', countStock);
 }
 
-// Show/Hide warning modal
-function showModal() {
-  const warningModal = document.querySelector('.warning-modal');
-  warningModal.style.display = 'block';
+const existingDeleteBtns = document.querySelectorAll('.delete-button');
+for (const existingDeleteBtn of existingDeleteBtns) {
+  existingDeleteBtn.addEventListener('click', (event) => {
+    showModal();
+    selectedRow = event.target.parentNode.parentNode;
+    countStock();
+  });
+}
 
-  const confirmBtn = document.querySelector('.confirm-btn');
-  const cancelBtn = document.querySelector('.cancel-btn');
+function showModal() {
+  warningModal.classList.add('show-modal');
+
+  cancelBtn.removeEventListener('click', hideModal);
+  confirmBtn.removeEventListener('click', confirmDelete);
 
   cancelBtn.addEventListener('click', hideModal);
   confirmBtn.addEventListener('click', confirmDelete);
 }
 
 function hideModal() {
-  const warningModal = document.querySelector('.warning-modal');
-  warningModal.style.display = 'none';
+  warningModal.classList.remove('show-modal');
 }
 
-// Delete table row
 function confirmDelete() {
-  const quantityCell = selectedRow.querySelector('.qty');
-  console.log(quantityCell);
-  inventoryCount -= Number(quantityCell.textContent);
-  totalInventory.innerText = `Total items in inventory (${inventoryCount})`;
+  let inventoryCount = 0;
+  const quantities = document.querySelectorAll('.qty');
+  for (const quantity of quantities) {
+    inventoryCount += Number(quantity.innerText);
+  }
 
-  lineItemsCount--;
-  totalLineItems.innerText = `Total line items: ${lineItemsCount}`;
+  const quantityCell = selectedRow.querySelector('.qty');
+
+  inventoryCount -= Number(quantityCell.textContent);
+  updateInventoryCount(totalInventory, inventoryCount);
+
+  --lineItemsCount;
+  updateLineItemsCount(totalLineItems, lineItemsCount);
 
   selectedRow.remove();
   hideModal();

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 /* || RESET */
 * {
@@ -15,7 +15,7 @@
   --secondary-color-darker: #5c5f64;
   --accent-color: #fff;
   --button-color: #ec0000;
-  --highlight-color: #FFFACD;
+  --highlight-color: #fffacd;
   /* Box shadow */
   --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -30,12 +30,12 @@
 }
 
 .product-table__tr.highlight {
-  background-color: var(--highlight-color)
+  background-color: var(--highlight-color);
 }
 
 /* || LAYOUT */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   line-height: 1.5rem;
   font-weight: 300;
 }
@@ -47,6 +47,7 @@ main {
 /* Header */
 header {
   background-color: var(--primary-color);
+  color: var(--accent-color);
   padding: 20px;
   box-shadow: var(--box-shadow);
 }
@@ -76,8 +77,8 @@ form {
   line-height: 2;
 }
 
-form,ƒ
-th {
+form,
+ƒ th {
   font-size: 18px;
 }
 
@@ -92,7 +93,8 @@ label {
 }
 
 /* Counts */
-.total-lines-count, .total-inventory-count {
+.total-lines-count,
+.total-inventory-count {
   text-align: right;
   color: var(--secondary-color-darker);
 }
@@ -115,14 +117,15 @@ table {
 }
 
 th {
-  padding: 5px;
   background-color: var(--primary-color);
   color: var(--accent-color);
   text-align: left;
+  font-weight: 300;
 }
 
 th,
 td {
+  padding: 0px 10px;
   border: 1px solid #000;
   max-height: 50px;
   text-overflow: ellipsis;
@@ -133,9 +136,9 @@ tr {
   border: 1px solid var(--secondary-color-darker);
 }
 
-/* tr:nth-child(odd) {
-  background: var(--secondary-color);
-} */
+tr:hover {
+  background-color: var(--highlight-color);
+}
 
 td {
   padding: 0px 10px;
@@ -147,7 +150,8 @@ td {
   border: 1px solid var(--secondary-color-darker);
 }
 
-.edit-col, .delete-col {
+.edit-col,
+.delete-col {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,8 +181,8 @@ svg {
 
 .warning-modal {
   background-color: var(--accent-color);
-  width: 50%;
-  height: 25%;
+  width: 400px;
+  height: 250px;
   border-radius: 10px;
   position: fixed;
   top: 50%;
@@ -188,13 +192,19 @@ svg {
   box-shadow: var(--box-shadow);
   display: none;
   padding: 10px;
-  overflow: auto;
+}
+
+.warning-modal.show-modal {
+  display: block;
+}
+
+.warning-modal.hide-modal {
+  display: none;
 }
 
 .warning-modal__buttons-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 15px 50px;
 }
 
 .warning-modal p {
